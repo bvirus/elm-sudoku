@@ -1,0 +1,47 @@
+body {
+    font: 12pt Helvetica;
+    font-weight: lighter;
+    padding: 1em;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.grid div {
+  padding: 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.grid div input {
+  padding: 0.4em;
+  font-size: 12pt;
+  width: calc(100%/9 - 1.5em);
+  text-align: center;
+  border: 0.2px solid #CCC;
+  border-radius: 5px;
+}
+
+section[title="header"] {
+    text-align: center;
+    margin: 1em;
+    padding: 1em;
+    line-height: 0.5rem;
+    margin-bottom: 0.5em;
+    margin-top: 0.2em;
+}
+
+section[title="header"] h3 {
+  font-size: 30pt;
+  margin: 1em;
+  margin-top: 0px;
+}
+
+section[title="header"] h5 {
+  font-size: 16pt;
+  margin: 0em;
+}
