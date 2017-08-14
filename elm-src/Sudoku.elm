@@ -1,31 +1,26 @@
-module Sudoku exposing (solve)
+module Sudoku exposing (..)
+import Check exposing (check)
+import Board exposing (Board)
 
-import Array exposing (Array(..))
-import Board exposing (Board, get, set)
+solve_ : Int -> Int -> Board -> (Board, Bool)
+solve_ index attempt board =
+    if index < (Board.length board) then
+        if attempt >= 1 && attempt <= 9 then
+            if (Board.get index board) == Just 0 then
+                let
+                    nextBoard = Board.set index attempt board
+                in
+                    if check index nextBoard then
+                        let
+                            (b, done) = solve_ (index + 1) 1 nextBoard
+                        in
+                            if done then (b, done)
+                            else solve_ index (attempt + 1) board
+                    else
+                        solve_ index (attempt + 1) board
+            else solve_ (index + 1) 1 board
+        else (board, False)
+    else (board, True)
 
-withoutDuplicates : List a -> List a
-withoutDuplicates =
-    List.foldl 
-        (\item prev -> 
-            if not (List.member item prev) then item :: prev else prev) 
-        []
-
-areDuplicates : List a -> Bool
-areDuplicates list =
-    (==) 
-        (List.length (withoutDuplicates list)) 
-        (List.length list)
-
-checkRow : Int -> Board -> Bool
-checkRow row board =
-    case (Board.getRow row board) of
-        Just rowList -> areDuplicates rowList
-        Nothing -> False
-    
-checkCol : Int -> Board -> Bool
-checkCol col board =
-    areDuplicates (Board.getCol col board)
-
-checkBox : Int -> Board -> Bool
-checkBox row col board =
-    areDuplicates (Board.getBox row col board)
+solve : Board -> (Board, Bool)
+solve board = (solve_ 0 1 board)
