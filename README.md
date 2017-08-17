@@ -1,3 +1,7 @@
+# elm-sudoku
+
+a sudoku solving app in elm
+
 4 8 0 3 2 9 0 0 0
 9 2 0 6 0 0 4 3 0
 0 0 0 8 0 1 0 9 7
