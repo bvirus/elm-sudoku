@@ -12,5 +12,9 @@
 
         <div id="app"></div>
         <script src="public/bundle.js"></script>
+        <script>
+            var node = document.getElementById('app');
+            var app = Elm.Main.embed(node);
+        </script>
     </body>
 </html>

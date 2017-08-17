@@ -7,17 +7,14 @@ solve_ index attempt board =
     if index < (Board.length board) then
         if attempt >= 1 && attempt <= 9 then
             if (Board.get index board) == Just 0 then
-                let
-                    nextBoard = Board.set index attempt board
-                in
-                    if check index nextBoard then
-                        let
-                            (b, done) = solve_ (index + 1) 1 nextBoard
-                        in
-                            if done then (b, done)
-                            else solve_ index (attempt + 1) board
-                    else
-                        solve_ index (attempt + 1) board
+                if check index attempt board then
+                    let
+                        (b, done) = solve_ (index + 1) 1 (Board.set index attempt board)
+                    in
+                        if done then (b, done)
+                        else solve_ index (attempt + 1) board
+                else
+                    solve_ index (attempt + 1) board
             else solve_ (index + 1) 1 board
         else (board, False)
     else (board, True)

@@ -1,35 +1,28 @@
 module Check exposing (check)
 import Array exposing (Array)
-import Set exposing (Set)
 import Board exposing (Board)
+  
+checkList : Int -> Array (Maybe Int) -> Bool
+checkList attempt =
+    not << List.any (\x -> case x of 
+        Nothing -> False
+        Just v -> v == attempt) << Array.toList
 
-without : a -> Array a -> Array a
-without v =
-    Array.filter (\x -> x /= v)
-
-areDuplicates : List comparable -> Bool
-areDuplicates list =
-    (Set.size (Set.fromList list)) == (List.length list)
+checkRow : Int -> Int -> Board -> Bool
+checkRow index attempt board =
+    checkList attempt (Board.getRow index board)
     
-checkList : Array Int -> Bool
-checkList =
-    without 0 >> Array.toList >> areDuplicates
-
-checkRow : Int -> Board -> Bool
-checkRow index board =
-    checkList (Board.getRow index board)
-    
-checkCol : Int -> Board -> Bool
-checkCol index board =
-    checkList (Board.getCol index board)
+checkCol : Int -> Int -> Board -> Bool
+checkCol index attempt board =
+    checkList attempt (Board.getCol index board)
 
 
-checkBox : Int -> Board -> Bool
-checkBox index board =
-    checkList (Board.getBox index board)
+checkBox : Int -> Int -> Board -> Bool
+checkBox index attempt board =
+    checkList attempt (Board.getBox index board)
 
-check : Int -> Board -> Bool
-check index board = 
-    (checkRow index board)
-    && (checkCol index board)  
-    && (checkBox index board)
+check : Int -> Int -> Board -> Bool
+check index attempt board = 
+    (checkRow index attempt board)
+    && (checkCol index attempt board)  
+    && (checkBox index attempt board)

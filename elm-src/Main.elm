@@ -6,10 +6,8 @@ import Html.Events exposing (onClick, onInput)
 import Html.Attributes exposing (type_, value, class, name, id)
 import Array
 
-
 main =
   Html.beginnerProgram { model = model, view = view, update = update }
-
 
 type alias Model = Board
 
@@ -62,6 +60,7 @@ viewBox index item =
         str = if item == 0 then "" else toString item
     in
         input [ type_ "text"
-                -- , onInput (Change index) 
+                , onInput (Change index)
+                , value str
                 ]
             []
