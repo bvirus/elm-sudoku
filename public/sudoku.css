@@ -20,9 +20,9 @@ body {
 .grid div input {
   padding: 0.4em;
   font-size: 12pt;
+  border: 1px #CCC solid;
   width: calc(100%/9 - 1.5em);
   text-align: center;
-  border: 0.2px solid #CCC;
   border-radius: 5px;
 }
 
